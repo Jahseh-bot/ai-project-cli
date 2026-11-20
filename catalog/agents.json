@@ -1,0 +1,482 @@
+{
+  "source": "https://github.com/vercel-labs/skills/blob/57217cf86ba38148a57af9e90d14a4c049558330/src/agents.ts",
+  "revision": "57217cf86ba38148a57af9e90d14a4c049558330",
+  "license": "MIT",
+  "verification": "Upstream project-directory mapping; client runtime loading is not locally verified.",
+  "agents": [
+    {
+      "id": "aider-desk",
+      "name": "AiderDesk",
+      "skillsDir": ".aider-desk/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "amp",
+      "name": "Amp",
+      "skillsDir": ".agents/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "antigravity",
+      "name": "Antigravity",
+      "skillsDir": ".agents/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "antigravity-cli",
+      "name": "Antigravity CLI",
+      "skillsDir": ".agents/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "astrbot",
+      "name": "AstrBot",
+      "skillsDir": "data/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "autohand-code",
+      "name": "Autohand Code CLI",
+      "skillsDir": ".autohand/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "augment",
+      "name": "Augment",
+      "skillsDir": ".augment/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "bob",
+      "name": "IBM Bob",
+      "skillsDir": ".bob/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "claude-code",
+      "name": "Claude Code",
+      "skillsDir": ".claude/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "openclaw",
+      "name": "OpenClaw",
+      "skillsDir": "skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "cline",
+      "name": "Cline",
+      "skillsDir": ".agents/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "codearts-agent",
+      "name": "CodeArts Agent",
+      "skillsDir": ".codeartsdoer/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "codebuddy",
+      "name": "CodeBuddy",
+      "skillsDir": ".codebuddy/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "codemaker",
+      "name": "Codemaker",
+      "skillsDir": ".codemaker/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "codestudio",
+      "name": "Code Studio",
+      "skillsDir": ".codestudio/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "codex",
+      "name": "Codex",
+      "skillsDir": ".agents/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "command-code",
+      "name": "Command Code",
+      "skillsDir": ".commandcode/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "continue",
+      "name": "Continue",
+      "skillsDir": ".continue/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "cortex",
+      "name": "Cortex Code",
+      "skillsDir": ".cortex/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "crush",
+      "name": "Crush",
+      "skillsDir": ".crush/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "cursor",
+      "name": "Cursor",
+      "skillsDir": ".agents/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "deepagents",
+      "name": "Deep Agents",
+      "skillsDir": ".agents/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "devin",
+      "name": "Devin for Terminal",
+      "skillsDir": ".devin/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "dexto",
+      "name": "Dexto",
+      "skillsDir": ".agents/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "droid",
+      "name": "Droid",
+      "skillsDir": ".agents/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "eve",
+      "name": "Eve",
+      "skillsDir": "agent/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "firebender",
+      "name": "Firebender",
+      "skillsDir": ".agents/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "forgecode",
+      "name": "ForgeCode",
+      "skillsDir": ".forge/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "fx",
+      "name": "fx",
+      "skillsDir": ".agents/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "gemini-cli",
+      "name": "Gemini CLI",
+      "skillsDir": ".agents/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "github-copilot",
+      "name": "GitHub Copilot",
+      "skillsDir": ".agents/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "goose",
+      "name": "Goose",
+      "skillsDir": ".goose/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "grok",
+      "name": "Grok Build",
+      "skillsDir": ".grok/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "hermes-agent",
+      "name": "Hermes Agent",
+      "skillsDir": ".hermes/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "inference-sh",
+      "name": "inference.sh",
+      "skillsDir": ".inferencesh/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "jazz",
+      "name": "Jazz",
+      "skillsDir": ".jazz/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "junie",
+      "name": "Junie",
+      "skillsDir": ".junie/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "iflow-cli",
+      "name": "iFlow CLI",
+      "skillsDir": ".iflow/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "kilo",
+      "name": "Kilo Code",
+      "skillsDir": ".agents/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "kimchi",
+      "name": "Kimchi",
+      "skillsDir": ".kimchi/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "kimi-code-cli",
+      "name": "Kimi Code CLI",
+      "skillsDir": ".agents/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "kiro-cli",
+      "name": "Kiro CLI",
+      "skillsDir": ".kiro/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "kode",
+      "name": "Kode",
+      "skillsDir": ".kode/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "lingma",
+      "name": "Lingma",
+      "skillsDir": ".lingma/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "loaf",
+      "name": "Loaf",
+      "skillsDir": ".agents/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "mcpjam",
+      "name": "MCPJam",
+      "skillsDir": ".mcpjam/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "minimax-code",
+      "name": "MiniMax Code",
+      "skillsDir": ".minimax/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "mistral-vibe",
+      "name": "Mistral Vibe",
+      "skillsDir": ".vibe/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "moxby",
+      "name": "Moxby",
+      "skillsDir": ".moxby/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "mux",
+      "name": "Mux",
+      "skillsDir": ".mux/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "opencode",
+      "name": "OpenCode",
+      "skillsDir": ".agents/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "openhands",
+      "name": "OpenHands",
+      "skillsDir": ".openhands/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "ona",
+      "name": "Ona",
+      "skillsDir": ".ona/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "pi",
+      "name": "Pi",
+      "skillsDir": ".agents/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "posit-assistant",
+      "name": "Posit Assistant",
+      "skillsDir": ".posit/assistant/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "qoder",
+      "name": "Qoder",
+      "skillsDir": ".qoder/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "qoder-cn",
+      "name": "Qoder CN",
+      "skillsDir": ".qoder/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "qwen-code",
+      "name": "Qwen Code",
+      "skillsDir": ".qwen/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "replit",
+      "name": "Replit",
+      "skillsDir": ".agents/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "reasonix",
+      "name": "Reasonix",
+      "skillsDir": ".reasonix/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "rovodev",
+      "name": "Rovo Dev",
+      "skillsDir": ".rovodev/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "roo",
+      "name": "Roo Code",
+      "skillsDir": ".roo/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "sarvam-code",
+      "name": "Sarvam Code",
+      "skillsDir": ".agents/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "tabnine-cli",
+      "name": "Tabnine CLI",
+      "skillsDir": ".tabnine/agent/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "terramind",
+      "name": "Terramind",
+      "skillsDir": ".terramind/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "tinycloud",
+      "name": "Tinycloud",
+      "skillsDir": ".tinycloud/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "trae",
+      "name": "Trae",
+      "skillsDir": ".trae/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "trae-cn",
+      "name": "Trae CN",
+      "skillsDir": ".trae/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "warp",
+      "name": "Warp",
+      "skillsDir": ".agents/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "windsurf",
+      "name": "Windsurf",
+      "skillsDir": ".windsurf/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "zed",
+      "name": "Zed",
+      "skillsDir": ".agents/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "zcode",
+      "name": "ZCode",
+      "skillsDir": ".zcode/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "zencoder",
+      "name": "Zencoder",
+      "skillsDir": ".zencoder/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "zenflow",
+      "name": "Zenflow",
+      "skillsDir": ".zencoder/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "neovate",
+      "name": "Neovate",
+      "skillsDir": ".neovate/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "pochi",
+      "name": "Pochi",
+      "skillsDir": ".pochi/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "promptscript",
+      "name": "PromptScript",
+      "skillsDir": ".agents/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "adal",
+      "name": "AdaL",
+      "skillsDir": ".adal/skills",
+      "status": "upstream-mapped"
+    },
+    {
+      "id": "universal",
+      "name": "Universal",
+      "skillsDir": ".agents/skills",
+      "status": "upstream-mapped"
+    }
+  ]
+}

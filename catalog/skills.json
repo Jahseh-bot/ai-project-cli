@@ -1,0 +1,92 @@
+[
+  {
+    "name": "vercel-react-best-practices",
+    "source": "https://github.com/vercel-labs/agent-skills",
+    "revision": "1a2c79d4e6c4a2283dc2c614b6538cbe1ed5ca62",
+    "subdir": "skills/react-best-practices",
+    "tags": ["react"],
+    "license": "MIT",
+    "status": "source-pinned-not-execution-audited"
+  },
+  {
+    "name": "vercel-react-native-skills",
+    "source": "https://github.com/vercel-labs/agent-skills",
+    "revision": "1a2c79d4e6c4a2283dc2c614b6538cbe1ed5ca62",
+    "subdir": "skills/react-native-skills",
+    "tags": ["mobile"],
+    "license": "MIT",
+    "status": "source-pinned-not-execution-audited"
+  },
+  {
+    "name": "web-design-guidelines",
+    "source": "https://github.com/vercel-labs/agent-skills",
+    "revision": "1a2c79d4e6c4a2283dc2c614b6538cbe1ed5ca62",
+    "subdir": "skills/web-design-guidelines",
+    "tags": ["web"],
+    "license": "See upstream repository and skill license",
+    "status": "source-pinned-not-execution-audited"
+  },
+  {
+    "name": "vercel-composition-patterns",
+    "source": "https://github.com/vercel-labs/agent-skills",
+    "revision": "1a2c79d4e6c4a2283dc2c614b6538cbe1ed5ca62",
+    "subdir": "skills/composition-patterns",
+    "tags": ["react"],
+    "license": "MIT",
+    "status": "source-pinned-not-execution-audited"
+  },
+  {
+    "name": "frontend-design",
+    "source": "https://github.com/anthropics/skills",
+    "revision": "e4bb5d960d87126ff3b3a8af1a104b7db67560ba",
+    "subdir": "skills/frontend-design",
+    "tags": ["web"],
+    "license": "Complete terms in LICENSE.txt",
+    "status": "source-pinned-not-execution-audited"
+  },
+  {
+    "name": "webapp-testing",
+    "source": "https://github.com/anthropics/skills",
+    "revision": "e4bb5d960d87126ff3b3a8af1a104b7db67560ba",
+    "subdir": "skills/webapp-testing",
+    "tags": ["web"],
+    "license": "Complete terms in LICENSE.txt",
+    "status": "source-pinned-not-execution-audited"
+  },
+  {
+    "name": "mcp-builder",
+    "source": "https://github.com/anthropics/skills",
+    "revision": "e4bb5d960d87126ff3b3a8af1a104b7db67560ba",
+    "subdir": "skills/mcp-builder",
+    "tags": ["ai"],
+    "license": "Complete terms in LICENSE.txt",
+    "status": "source-pinned-not-execution-audited"
+  },
+  {
+    "name": "supabase-postgres-best-practices",
+    "source": "https://github.com/supabase/agent-skills",
+    "revision": "c9be0e931b7930f7d02126d04774d904c381e7d7",
+    "subdir": "skills/supabase-postgres-best-practices",
+    "tags": ["postgres"],
+    "license": "MIT",
+    "status": "source-pinned-not-execution-audited"
+  },
+  {
+    "name": "expo-native-ui",
+    "source": "https://github.com/expo/skills",
+    "revision": "88d9bd79f3fa8452a778fbac65bae162c0b32ce4",
+    "subdir": "plugins/expo/skills/expo-native-ui",
+    "tags": ["mobile"],
+    "license": "MIT",
+    "status": "source-pinned-not-execution-audited"
+  },
+  {
+    "name": "expo-project-structure",
+    "source": "https://github.com/expo/skills",
+    "revision": "88d9bd79f3fa8452a778fbac65bae162c0b32ce4",
+    "subdir": "plugins/expo/skills/expo-project-structure",
+    "tags": ["mobile"],
+    "license": "MIT",
+    "status": "source-pinned-not-execution-audited"
+  }
+]

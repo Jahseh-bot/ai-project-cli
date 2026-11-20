@@ -1,0 +1,46 @@
+{
+  "name": "@curveslink/ai-project-cli",
+  "version": "0.1.0",
+  "description": "Reproducible project scaffolds, quality gates and project-local coding skills",
+  "type": "module",
+  "bin": {
+    "ai-project": "bin/ai-project.js"
+  },
+  "files": [
+    "bin",
+    "src",
+    "catalog",
+    "README.md",
+    "LICENSE",
+    "docs",
+    "CONTEXT.md"
+  ],
+  "engines": {
+    "node": ">=22.14"
+  },
+  "scripts": {
+    "test": "node --test test/core.test.js",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "check": "npm run lint && npm run format:check && npm test",
+    "smoke": "node scripts/smoke.mjs",
+    "prepack": "npm run check"
+  },
+  "devDependencies": {
+    "eslint": "10.15.0",
+    "prettier": "3.10.1"
+  },
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jahseh-bot/ai-project-cli.git"
+  },
+  "homepage": "https://github.com/Jahseh-bot/ai-project-cli#readme",
+  "bugs": {
+    "url": "https://github.com/Jahseh-bot/ai-project-cli/issues"
+  }
+}
