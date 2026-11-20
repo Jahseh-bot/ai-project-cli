@@ -30,6 +30,7 @@ export const profiles = {
 };
 export function qualityFiles() {
   return {
+    ".gitattributes": "* text=auto eol=lf\n",
     "eslint.config.js": `import globals from 'globals';\nexport default [{ ignores: ['node_modules/**', 'dist/**', '.venv/**', '.ai-project/**', '.agents/**', '.claude/**', '.cursor/**', '**/skills/**', 'coverage/**'] }, { files: ['**/*.js', '**/*.mjs'], languageOptions: { ecmaVersion: 'latest', sourceType: 'module', globals: { ...globals.node, ...globals.browser } }, rules: { 'no-unused-vars': 'error', 'no-undef': 'error', 'no-unreachable': 'error', 'no-dupe-keys': 'error', 'valid-typeof': 'error' } }];\n`,
     ".prettierignore":
       "node_modules\ndist\n.venv\n.ai-project\n**/skills\ncoverage\nrelease\ntest-results\nplaywright-report\nuv.lock\n",
