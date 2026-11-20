@@ -1,3 +1,5 @@
+import { VERSION } from "./version.js";
+import { engineeringSkills } from "./skill-packs.js";
 import fs from "node:fs";
 import path from "node:path";
 import os from "node:os";
@@ -28,6 +30,7 @@ export function recommendSkills({ profile = "", database = "none" } = {}) {
   )
     tags.add("web");
   if (profile === "mobile-expo") tags.add("mobile");
+  if (profile.includes("vue") || profile.includes("nuxt")) tags.add("vue");
   if (database === "postgres") tags.add("postgres");
   return curatedSkills.filter((skill) =>
     skill.tags.some((tag) => tags.has(tag)),
@@ -41,6 +44,7 @@ export function resolveSkill(nameOrSource, options = {}) {
     : importSkill(nameOrSource, options);
 }
 export const builtins = {
+  ...engineeringSkills,
   "quality-gates": [
     "Run the project quality gates when changing code.",
     "Read package scripts and CI first. Run formatting, lint, type checks, relevant tests and builds. Report exact commands, failures and checks not run. Never disable a check merely to make it pass.",
@@ -90,7 +94,7 @@ export function builtinSkill(name) {
   return {
     name,
     source: "builtin",
-    revision: "0.1.0",
+    revision: VERSION,
     files: {
       "SKILL.md": `---\nname: ${name}\ndescription: ${value[0]}\n---\n\n${value[1]}\n`,
     },

@@ -1,9 +1,14 @@
+import { VERSION } from "./version.js";
+import { extraProfiles, applyFramework } from "./frameworks.js";
+import { applyWorkspace } from "./architecture.js";
+import { sqliteFiles } from "./sqlite-files.js";
 import { postgresFiles } from "./postgres-files.js";
 import { webQuality } from "./web-quality.js";
 import { json, hash } from "./files.js";
 import { builtinSkill, skillFiles, selectedAgents } from "./skills.js";
 
 export const profiles = {
+  ...extraProfiles,
   "web-react": { label: "React + Vite", kind: "web", ui: "react" },
   "web-vue": { label: "Vue + Vite", kind: "web", ui: "vue" },
   "api-node": { label: "Node.js HTTP API", kind: "backend", api: true },
@@ -143,6 +148,7 @@ export function generate({
   database = "none",
   agents = "codex,claude-code,cursor",
   skills,
+  architecture = "layered",
 } = {}) {
   if (!/^[a-z][a-z0-9-]{0,63}$/.test(name ?? ""))
     throw new Error("项目名称需为小写字母开头，最多 64 位字母、数字或连字符");
@@ -150,12 +156,17 @@ export function generate({
   if (!p) throw new Error("未知模板: " + profile);
   if (!["none", "chat", "rag", "agent"].includes(ai))
     throw new Error("AI 能力必须是 none/chat/rag/agent");
-  if (!["none", "postgres"].includes(database))
-    throw new Error("数据库必须是 none/postgres");
+  if (!["none", "postgres", "sqlite"].includes(database))
+    throw new Error("数据库必须是 none/sqlite/postgres");
   if (p.python && (ai !== "none" || database !== "none"))
     throw new Error(
       "Python 模板目前仅支持基础 API；AI 与数据库组合请选 Node API，或提供扩展包",
     );
+  if (
+    !["layered", "workspace"].includes(architecture) ||
+    (p.python && architecture !== "layered")
+  )
+    throw new Error("此模板不支持所选架构");
   const hasApi = p.api || ai !== "none" || database !== "none";
   const selected = selectedAgents(agents);
   const chosenSkills =
@@ -164,6 +175,7 @@ export function generate({
       : skills
         ? skills.split(",")
         : [
+            "requirements-design",
             "quality-gates",
             "architecture-review",
             "test-design",
@@ -300,11 +312,12 @@ export function generate({
   });
   files[".ai-project/project.json"] = json({
     schemaVersion: 1,
-    generator: "0.1.0",
+    generator: VERSION,
     name,
     profile,
     ai,
     database,
+    architecture,
     agents: selected.map((a) => a.id),
     verification: "generated-not-verified",
   });
@@ -321,6 +334,16 @@ export function generate({
     `# ${name}\n\n${p.label}. Generated using ai-project-cli.\n\n## Start\n\nRequires Node.js 22.14+ (Node 24 recommended).\n\n\`\`\`sh\nnpm install\n${p.python ? "uv sync\n" : ""}npm run format\nnpm run check\nnpm run dev\n\`\`\`\n\nCommit package-lock.json${p.python ? " and uv.lock" : ""} after installation; CI uses frozen dependencies. Formatting is an explicit initialization step before the first check.\n\n${hasApi ? "API: run npm run dev:api in a separate terminal. GET /health is public. " : ""}${ai !== "none" ? 'POST /api/ask accepts {"question":"..."} with Bearer API_TOKEN. Copy .env.example to .env and configure your model endpoint. The UI is an independent starter; wire a user-authenticated backend route before exposing AI features. Never ship API_TOKEN in a public client.\n\n' : ""}${p.desktop ? "Desktop: npm run dev:desktop. npm run package:desktop produces an unsigned package for the current platform; npm run build builds the renderer only. Configure signing and notarization for distribution.\n\n" : ""}${p.mobile ? "Mobile: npm run dev starts Expo; npm run build exports web. Native device builds require platform toolchains and separate device testing.\n\n" : ""}${database === "postgres" ? "Database: configure POSTGRES_PASSWORD, run docker compose -f infra/compose.yml up -d, configure DATABASE_URL, then npm run migrate. The migration runner uses a transaction, advisory lock and checksum history; add new migration files rather than editing applied migrations.\n\n" : ""}## Quality\n\nRun npm run check. It includes lint, formatting, tests, a basic secret-pattern check and build. This is a starting baseline, not a security audit or production certification.\n\n## Development skills\n\nSkills are project-local copies with hashes in .ai-project/skills-lock.json. Adapter directories follow a pinned upstream catalog; actual client loading still requires validation.\n`;
   files[".github/workflows/quality.yml"] =
     `name: Quality\non: [push, pull_request]\npermissions:\n  contents: read\njobs:\n  quality:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-node@v4\n        with:\n          node-version: '24'\n      - run: npm ci\n${p.python ? "      - uses: astral-sh/setup-uv@v6\n      - run: uv sync --frozen\n" : ""}      - run: npm run check\n${p.ui ? "      - run: npx playwright install --with-deps chromium\n      - run: npm run test:e2e\n" : ""}`;
+  if (database === "sqlite") {
+    Object.assign(files, sqliteFiles());
+    scripts.migrate = "node --env-file-if-exists=.env scripts/migrate.js";
+    files[".env.example"] += "DATABASE_PATH=data/app.sqlite\n";
+    files[".gitignore"] += "data/*.sqlite*\n";
+    files["README.md"] +=
+      "\n## SQLite\n\nRun npm run migrate to initialize the local database. Applied migrations are checksum-locked. Back up the database before schema changes.\n";
+  }
+  applyFramework(files, pkg, p);
+  if (architecture === "workspace") applyWorkspace(files, pkg, name);
   files["package.json"] = json(pkg);
   return files;
 }

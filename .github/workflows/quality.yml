@@ -19,6 +19,21 @@ jobs:
       - run: npm run check
       - run: npm pack
   templates:
+    strategy:
+      fail-fast: false
+      matrix:
+        template:
+          [
+            web-react,
+            web-vue,
+            api-node,
+            fullstack-next,
+            fullstack-nuxt,
+            web-astro,
+            "api-express:layered:sqlite:agent",
+            "api-fastify:workspace:sqlite:rag",
+            "fullstack-react:workspace:sqlite:chat",
+          ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -26,4 +41,4 @@ jobs:
         with:
           node-version: "24"
       - run: npm ci
-      - run: npm run smoke -- web-react web-vue api-node fullstack-react fullstack-vue
+      - run: npm run smoke -- "${{ matrix.template }}"

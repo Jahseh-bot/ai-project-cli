@@ -96,29 +96,34 @@ test("every allowed template combination emits quality and project metadata", ()
   let total = 0;
   for (const profile of Object.keys(profiles))
     for (const ai of ["none", "chat", "rag", "agent"])
-      for (const database of ["none", "postgres"]) {
-        if (profile === "api-python" && (ai !== "none" || database !== "none"))
-          continue;
-        const files = generate({
-          name: "sample",
-          profile,
-          ai,
-          database,
-          agents: "codex",
-        });
-        const pkg = JSON.parse(files["package.json"]);
-        for (const key of ["lint", "format:check", "test", "build", "check"])
-          assert.ok(pkg.scripts[key], profile + key);
-        assert.ok(files[".github/workflows/quality.yml"]);
-        assert.ok(files["AGENTS.md"]);
-        assert.ok(files[".ai-project/skills-lock.json"]);
-        if (ai !== "none") {
-          assert.ok(files["evals/dataset.json"]);
-          assert.ok(files["tests/ai.test.js"]);
+      for (const database of ["none", "postgres", "sqlite"])
+        for (const architecture of ["layered", "workspace"]) {
+          if (
+            profile === "api-python" &&
+            (ai !== "none" || database !== "none" || architecture !== "layered")
+          )
+            continue;
+          const files = generate({
+            name: "sample",
+            profile,
+            ai,
+            database,
+            architecture,
+            agents: "codex",
+          });
+          const pkg = JSON.parse(files["package.json"]);
+          for (const key of ["lint", "format:check", "test", "build", "check"])
+            assert.ok(pkg.scripts[key], profile + key);
+          assert.ok(files[".github/workflows/quality.yml"]);
+          assert.ok(files["AGENTS.md"]);
+          assert.ok(files[".ai-project/skills-lock.json"]);
+          if (ai !== "none") {
+            assert.ok(files["evals/dataset.json"]);
+            assert.ok(files["tests/ai.test.js"]);
+          }
+          total++;
         }
-        total++;
-      }
-  assert.equal(total, 57);
+  assert.equal(total, (Object.keys(profiles).length - 1) * 24 + 1);
 });
 test("invalid combinations are rejected", () => {
   assert.throws(() => generate({ name: "../bad" }));

@@ -88,5 +88,185 @@
     "tags": ["mobile"],
     "license": "MIT",
     "status": "source-pinned-not-execution-audited"
+  },
+  {
+    "name": "deploy-to-vercel",
+    "source": "https://github.com/vercel-labs/agent-skills",
+    "revision": "1a2c79d4e6c4a2283dc2c614b6538cbe1ed5ca62",
+    "subdir": "skills/deploy-to-vercel",
+    "tags": ["deploy"],
+    "license": "See upstream repository and skill license",
+    "status": "source-pinned-not-execution-audited"
+  },
+  {
+    "name": "vercel-react-view-transitions",
+    "source": "https://github.com/vercel-labs/agent-skills",
+    "revision": "1a2c79d4e6c4a2283dc2c614b6538cbe1ed5ca62",
+    "subdir": "skills/react-view-transitions",
+    "tags": ["react"],
+    "license": "MIT",
+    "status": "source-pinned-not-execution-audited"
+  },
+  {
+    "name": "doc-coauthoring",
+    "source": "https://github.com/anthropics/skills",
+    "revision": "e4bb5d960d87126ff3b3a8af1a104b7db67560ba",
+    "subdir": "skills/doc-coauthoring",
+    "tags": ["planning"],
+    "license": "See upstream repository and skill license",
+    "status": "source-pinned-not-execution-audited"
+  },
+  {
+    "name": "skill-creator",
+    "source": "https://github.com/anthropics/skills",
+    "revision": "e4bb5d960d87126ff3b3a8af1a104b7db67560ba",
+    "subdir": "skills/skill-creator",
+    "tags": ["skills"],
+    "license": "See upstream repository and skill license",
+    "status": "source-pinned-not-execution-audited"
+  },
+  {
+    "name": "expo-router",
+    "source": "https://github.com/expo/skills",
+    "revision": "88d9bd79f3fa8452a778fbac65bae162c0b32ce4",
+    "subdir": "plugins/expo/skills/expo-router",
+    "tags": ["mobile"],
+    "license": "MIT",
+    "status": "source-pinned-not-execution-audited"
+  },
+  {
+    "name": "expo-data-fetching",
+    "source": "https://github.com/expo/skills",
+    "revision": "88d9bd79f3fa8452a778fbac65bae162c0b32ce4",
+    "subdir": "plugins/expo/skills/expo-data-fetching",
+    "tags": ["mobile"],
+    "license": "MIT",
+    "status": "source-pinned-not-execution-audited"
+  },
+  {
+    "name": "expo-dev-client",
+    "source": "https://github.com/expo/skills",
+    "revision": "88d9bd79f3fa8452a778fbac65bae162c0b32ce4",
+    "subdir": "plugins/expo/skills/expo-dev-client",
+    "tags": ["mobile"],
+    "license": "MIT",
+    "status": "source-pinned-not-execution-audited"
+  },
+  {
+    "name": "eas-workflows",
+    "source": "https://github.com/expo/skills",
+    "revision": "88d9bd79f3fa8452a778fbac65bae162c0b32ce4",
+    "subdir": "plugins/expo/skills/eas-workflows",
+    "tags": ["mobile"],
+    "license": "MIT License",
+    "status": "source-pinned-not-execution-audited"
+  },
+  {
+    "name": "eas-app-stores",
+    "source": "https://github.com/expo/skills",
+    "revision": "88d9bd79f3fa8452a778fbac65bae162c0b32ce4",
+    "subdir": "plugins/expo/skills/eas-app-stores",
+    "tags": ["mobile"],
+    "license": "MIT",
+    "status": "source-pinned-not-execution-audited"
+  },
+  {
+    "name": "expo-upgrade",
+    "source": "https://github.com/expo/skills",
+    "revision": "88d9bd79f3fa8452a778fbac65bae162c0b32ce4",
+    "subdir": "plugins/expo/skills/expo-upgrade",
+    "tags": ["mobile"],
+    "license": "MIT",
+    "status": "source-pinned-not-execution-audited"
+  },
+  {
+    "name": "expo-animation",
+    "source": "https://github.com/expo/skills",
+    "revision": "88d9bd79f3fa8452a778fbac65bae162c0b32ce4",
+    "subdir": "plugins/expo/skills/expo-animation",
+    "tags": ["mobile"],
+    "license": "MIT",
+    "status": "source-pinned-not-execution-audited"
+  },
+  {
+    "name": "nuxt",
+    "source": "https://github.com/antfu/skills",
+    "revision": "4a6bb39e7b45e26402eb215393c51ccf5df1ca4c",
+    "subdir": "skills/nuxt",
+    "tags": ["vue"],
+    "license": "See upstream repository and skill license",
+    "status": "source-pinned-not-execution-audited"
+  },
+  {
+    "name": "pinia",
+    "source": "https://github.com/antfu/skills",
+    "revision": "4a6bb39e7b45e26402eb215393c51ccf5df1ca4c",
+    "subdir": "skills/pinia",
+    "tags": ["vue"],
+    "license": "See upstream repository and skill license",
+    "status": "source-pinned-not-execution-audited"
+  },
+  {
+    "name": "vite",
+    "source": "https://github.com/antfu/skills",
+    "revision": "4a6bb39e7b45e26402eb215393c51ccf5df1ca4c",
+    "subdir": "skills/vite",
+    "tags": ["tooling"],
+    "license": "See upstream repository and skill license",
+    "status": "source-pinned-not-execution-audited"
+  },
+  {
+    "name": "vitest",
+    "source": "https://github.com/antfu/skills",
+    "revision": "4a6bb39e7b45e26402eb215393c51ccf5df1ca4c",
+    "subdir": "skills/vitest",
+    "tags": ["tooling"],
+    "license": "See upstream repository and skill license",
+    "status": "source-pinned-not-execution-audited"
+  },
+  {
+    "name": "pnpm",
+    "source": "https://github.com/antfu/skills",
+    "revision": "4a6bb39e7b45e26402eb215393c51ccf5df1ca4c",
+    "subdir": "skills/pnpm",
+    "tags": ["tooling"],
+    "license": "See upstream repository and skill license",
+    "status": "source-pinned-not-execution-audited"
+  },
+  {
+    "name": "vue-best-practices",
+    "source": "https://github.com/vuejs-ai/skills",
+    "revision": "198f0cd8f7f9c0a3d9b566ccc16de6677519ee78",
+    "subdir": "skills/vue-best-practices",
+    "tags": ["vue"],
+    "license": "MIT",
+    "status": "source-pinned-not-execution-audited"
+  },
+  {
+    "name": "vue-debug-guides",
+    "source": "https://github.com/vuejs-ai/skills",
+    "revision": "198f0cd8f7f9c0a3d9b566ccc16de6677519ee78",
+    "subdir": "skills/vue-debug-guides",
+    "tags": ["vue"],
+    "license": "MIT",
+    "status": "source-pinned-not-execution-audited"
+  },
+  {
+    "name": "vue-router-best-practices",
+    "source": "https://github.com/vuejs-ai/skills",
+    "revision": "198f0cd8f7f9c0a3d9b566ccc16de6677519ee78",
+    "subdir": "skills/vue-router-best-practices",
+    "tags": ["vue"],
+    "license": "MIT",
+    "status": "source-pinned-not-execution-audited"
+  },
+  {
+    "name": "vue-testing-best-practices",
+    "source": "https://github.com/vuejs-ai/skills",
+    "revision": "198f0cd8f7f9c0a3d9b566ccc16de6677519ee78",
+    "subdir": "skills/vue-testing-best-practices",
+    "tags": ["vue"],
+    "license": "MIT",
+    "status": "source-pinned-not-execution-audited"
   }
 ]

@@ -1,6 +1,6 @@
 {
   "name": "@curveslink/ai-project-cli",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Reproducible project scaffolds, quality gates and project-local coding skills",
   "type": "module",
   "bin": {
@@ -42,5 +42,8 @@
   "homepage": "https://github.com/Jahseh-bot/ai-project-cli#readme",
   "bugs": {
     "url": "https://github.com/Jahseh-bot/ai-project-cli/issues"
+  },
+  "dependencies": {
+    "@clack/prompts": "1.9.0"
   }
 }

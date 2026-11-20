@@ -1,8 +1,16 @@
-import { npmRun } from "./process.js";
+import { VERSION } from "./version.js";
+import {
+  chooseAction,
+  setupWizard,
+  confirmApply,
+  completion,
+  generationNotice,
+  pickAgents,
+  pickSkills,
+} from "./wizard.js";
+import { npmRun, commandTask } from "./process.js";
 import fs from "node:fs";
 import path from "node:path";
-import readline from "node:readline/promises";
-import { execFileSync } from "node:child_process";
 import { parseArgs } from "node:util";
 import { generate, profiles, retrofitFiles } from "./templates.js";
 import { json, read, write, safePath, hash } from "./files.js";
@@ -19,56 +27,12 @@ import {
 import { inspect } from "./inspect.js";
 import { loadExtension } from "./extensions.js";
 
-const help = `AI Project CLI 0.1.0\n\n用法：ai-project <command> [path] [options]\n\n  init <directory>       新建项目（空目录）\n  inspect [directory]    只读检查现有项目\n  verify [directory]     运行项目 check，保存验证结果\n  plan [directory]       预览并保存基础质量改造计划\n  apply [directory]      再次预览并确认应用计划\n  rollback <id>          恢复本次改动（--project 指定目录）\n  skills list            查看内置开发 Skills\n  skills add <source>    导入内置名、本地目录或 HTTPS Git 来源\n  agents                 查看固定版本的助手适配目录\n  templates              查看技术组合选项\n\n选项：\n  --profile <name>       模板（默认 fullstack-react）\n  --ai none|chat|rag|agent\n  --database none|postgres\n  --agents <a,b>|all     项目级 Skills 目标，默认 codex,claude-code,cursor\n  --skills <a,b>|none    新项目技能，默认按技术栈推荐\n  --extension <dir>     叠加本地声明式扩展包\n  --name <name>         项目包名\n  --project <dir>       Skills/恢复操作的项目位置\n  --ref <git-ref>        Git 技能来源版本；解析后锁定 commit\n  --subdir <dir>         Git 仓库内的技能目录\n  --install             新项目生成后安装依赖并初始化锁文件\n  --yes                 非交互；apply 时明确授权应用已展示计划\n  --json                inspect/agents/templates 的 JSON 输出\n  --help / --version\n\nCLI 不调用大模型，不修改全局 Skills，不自动运行导入技能的脚本。\n`;
-async function ask(label, fallback) {
-  const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-  });
-  try {
-    const value = (
-      await rl.question(`${label}${fallback ? ` [${fallback}]` : ""}: `)
-    ).trim();
-    return value || fallback;
-  } finally {
-    rl.close();
-  }
-}
+const help = `AI Project CLI ${VERSION}\n\n用法：ai-project <command> [path] [options]\n\n  init <directory>       新建项目（空目录）\n  inspect [directory]    只读检查现有项目\n  verify [directory]     运行项目 check，保存验证结果\n  plan [directory]       预览并保存基础质量改造计划\n  apply [directory]      再次预览并确认应用计划\n  rollback <id>          恢复本次改动（--project 指定目录）\n  skills list            查看内置开发 Skills\n  skills add <source>    导入内置名、本地目录或 HTTPS Git 来源\n  agents                 查看固定版本的助手适配目录\n  templates              查看技术组合选项\n\n选项：\n  --profile <name>       模板（默认 fullstack-react）\n  --ai none|chat|rag|agent\n  --database none|sqlite|postgres\n  --architecture layered|workspace\n  --agents <a,b>|all     项目级 Skills 目标，默认 codex,claude-code,cursor\n  --skills <a,b>|none    新项目技能，默认按技术栈推荐\n  --extension <dir>     叠加本地声明式扩展包\n  --name <name>         项目包名\n  --project <dir>       Skills/恢复操作的项目位置\n  --ref <git-ref>        Git 技能来源版本；解析后锁定 commit\n  --subdir <dir>         Git 仓库内的技能目录\n  --install             新项目生成后安装依赖并初始化锁文件\n  --yes                 非交互；apply 时明确授权应用已展示计划\n  --json                inspect/agents/templates 的 JSON 输出\n  --help / --version\n\nCLI 不调用大模型，不修改全局 Skills，不自动运行导入技能的脚本。\n`;
 async function confirmed(yes) {
   if (yes) return true;
   if (!process.stdin.isTTY)
     throw new Error("非交互应用需要 --yes；请先审查 plan 输出");
-  return (await ask("确认应用上述改动？输入 yes", "no")) === "yes";
-}
-async function wizard(options, destination) {
-  if (!process.stdin.isTTY || options.yes) return { options, destination };
-  destination ??= await ask("项目目录", "my-ai-app");
-  if (!options.profile) {
-    console.log(
-      Object.entries(profiles)
-        .map(([id, p]) => `  ${id}: ${p.label}`)
-        .join("\n"),
-    );
-    options.profile = await ask("技术模板", "fullstack-react");
-  }
-  options.ai ??= await ask("AI 能力：none / chat / rag / agent", "none");
-  options.database ??= await ask("数据库：none / postgres", "none");
-  options.agents ??= await ask(
-    "编程助手 ID，逗号分隔；all 可选择全部映射",
-    "codex,claude-code,cursor",
-  );
-  console.log(
-    "可选第三方 Skills（需要网络，固定来源版本）：" +
-      recommendSkills(options)
-        .map((s) => s.name)
-        .join(", "),
-  );
-  options.skills ??= await ask(
-    "Skills：recommended / none / 逗号分隔的名称",
-    "recommended",
-  );
-  if (options.skills === "recommended") delete options.skills;
-  return { options, destination };
+  return confirmApply();
 }
 function savePlan(root, plan) {
   console.log(formatPlan(plan));
@@ -106,6 +70,7 @@ export async function main(argv = process.argv.slice(2)) {
         "ref",
         "subdir",
         "extension",
+        "architecture",
       ].map((name) => [name, { type: "string" }]),
       ...["yes", "json", "help", "version", "install"].map((name) => [
         name,
@@ -118,18 +83,15 @@ export async function main(argv = process.argv.slice(2)) {
     return;
   }
   if (options.version) {
-    console.log("0.1.0");
+    console.log(VERSION);
     return;
   }
   let [command, argument, extra] = positionals;
   if (!command) {
     if (process.stdin.isTTY) {
-      command = await ask(
-        "操作：init 新建 / inspect 检查 / plan 改造预览",
-        "init",
-      );
-      if (["inspect", "plan"].includes(command))
-        argument = await ask("项目目录", ".");
+      const action = await chooseAction();
+      command = action.command;
+      argument = action.argument;
     } else {
       console.log(help);
       return;
@@ -152,12 +114,12 @@ export async function main(argv = process.argv.slice(2)) {
         : Object.entries(profiles)
             .map(([id, p]) => `${id.padEnd(20)} ${p.label}`)
             .join("\n") +
-            "\n支持 AI: none/chat/rag/agent（Python 基础模板除外）；数据库: none/postgres（Python 除外）。\n移动/桌面原生安装包尚未认证。",
+            "\n支持 AI: none/chat/rag/agent（Python 基础模板除外）；数据库: none/sqlite/postgres（Python 除外）。\n移动/桌面原生安装包尚未认证。",
     );
     return;
   }
   if (command === "init") {
-    const result = await wizard(options, argument);
+    const result = await setupWizard(options, argument);
     argument = result.destination;
     if (!argument) throw new Error("请提供目标目录");
     const root = path.resolve(argument),
@@ -170,6 +132,7 @@ export async function main(argv = process.argv.slice(2)) {
       profile: options.profile ?? "fullstack-react",
       ai: options.ai ?? "none",
       database: options.database ?? "none",
+      architecture: options.architecture ?? "layered",
       agents: options.agents,
       skills: options.skills,
     };
@@ -235,22 +198,31 @@ export async function main(argv = process.argv.slice(2)) {
     fs.mkdirSync(root, { recursive: true });
     for (const [file, content] of Object.entries(files))
       write(root, file, content);
-    console.log(
-      `已创建 ${root}\n模板 ${config.profile}；AI ${config.ai}；数据库 ${config.database}\n生成不代表验证完成。`,
-    );
+    if (process.stdout.isTTY) generationNotice(config.profile, root);
+    else
+      console.log(
+        `已创建 ${root}\n模板 ${config.profile}；AI ${config.ai}；数据库 ${config.database}\n生成不代表验证完成。`,
+      );
     if (options.install) {
-      npmRun(["install"], { cwd: root });
+      await commandTask("npm", ["install"], {
+        cwd: root,
+        title: "安装依赖并生成锁文件",
+      });
       if (profiles[config.profile].python)
-        execFileSync("uv", ["sync"], {
+        await commandTask("uv", ["sync"], {
           cwd: root,
-          stdio: "inherit",
-          timeout: 300000,
+          title: "安装 Python 依赖",
         });
-      npmRun(["run", "format"], { cwd: root, timeout: 60000 });
+      await commandTask("npm", ["run", "format"], {
+        cwd: root,
+        title: "初始化项目格式",
+      });
     }
-    console.log(
-      "下一步：安装依赖、运行 npm run format 和 npm run check，提交生成的锁文件。",
-    );
+    if (process.stdout.isTTY) completion(root, options.install);
+    else
+      console.log(
+        "下一步：安装依赖、运行 npm run format 和 npm run check，提交生成的锁文件。",
+      );
     return;
   }
   if (command === "verify") {
@@ -378,6 +350,47 @@ export async function main(argv = process.argv.slice(2)) {
     const root = path.resolve(options.project ?? ".");
     rollback(root, argument);
     console.log("已恢复本次改动；未删除空目录。");
+    return;
+  }
+  if (command === "skills-menu") {
+    const root = path.resolve(argument);
+    const config = JSON.parse(read(root, ".ai-project/project.json") ?? "{}");
+    const targets = await pickAgents(config.agents);
+    const selected = await pickSkills(config);
+    const names =
+      selected === "recommended"
+        ? [
+            "quality-gates",
+            "architecture-review",
+            "test-design",
+            "requirements-design",
+          ]
+        : selected === "none"
+          ? []
+          : selected.split(",");
+    const agents = selectedAgents(targets.join(","));
+    const desired = {};
+    const combinedLock = JSON.parse(
+      read(root, ".ai-project/skills-lock.json") ??
+        '{"schemaVersion":1,"skills":[]}',
+    );
+    for (const name of names) {
+      const skill = resolveSkill(name);
+      const additions = installSkillFiles(root, skill, agents);
+      Object.assign(desired, additions);
+      const newLock = JSON.parse(additions[".ai-project/skills-lock.json"]);
+      for (const record of newLock.skills)
+        if (
+          !combinedLock.skills.some((existing) => existing.name === record.name)
+        )
+          combinedLock.skills.push(record);
+    }
+    if (!names.length) return;
+    desired[".ai-project/skills-lock.json"] = json(combinedLock);
+    const plan = mergeManagedLock(root, desired);
+    savePlan(root, plan);
+    if (await confirmed(false))
+      console.log("已应用，备份: " + applyPlan(root, plan));
     return;
   }
   if (command === "skills") {

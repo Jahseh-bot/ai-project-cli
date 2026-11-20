@@ -15,8 +15,11 @@ const combinations = process.argv.slice(2).length
       "mobile-expo",
     ];
 let failed = false;
-for (const profile of combinations) {
-  const target = path.join(root, profile);
+for (const variant of combinations) {
+  const [profile, architecture = "layered", database = "none", chosenAI] =
+    variant.split(":");
+  const label = variant.replaceAll(":", "--");
+  const target = path.join(root, label);
   if (fs.existsSync(target))
     fs.rmSync(target, { recursive: true, force: true });
   const commands = [
@@ -29,7 +32,11 @@ for (const profile of combinations) {
         "--profile",
         profile,
         "--ai",
-        profile === "api-node" ? "agent" : "none",
+        chosenAI ?? (profile === "api-node" ? "agent" : "none"),
+        "--architecture",
+        architecture,
+        "--database",
+        database,
         "--agents",
         "codex",
         "--yes",
@@ -60,13 +67,13 @@ for (const profile of combinations) {
       break;
     }
   }
-  fs.writeFileSync(path.join(root, profile + ".log"), log.join("\n"));
+  fs.writeFileSync(path.join(root, label + ".log"), log.join("\n"));
   console.log(
-    profile +
+    label +
       ": " +
       (success
         ? "PASS (install, lint, format, tests, build)"
-        : "FAIL — see .artifacts/smoke/" + profile + ".log"),
+        : "FAIL — see .artifacts/smoke/" + label + ".log"),
   );
   if (!success) failed = true;
 }
